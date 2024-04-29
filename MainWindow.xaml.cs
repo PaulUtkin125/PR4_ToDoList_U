@@ -1,6 +1,7 @@
 ﻿using PR4_ToDoList_U.Data;
 using PR4_ToDoList_U.Model;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -71,17 +72,27 @@ namespace PR4_ToDoList_U
                     CheckBox checkBox = new CheckBox();
                     checkBox.VerticalAlignment = VerticalAlignment.Center;
                     checkBox.IsChecked = false;
-                    //checkBox.Click +=;
+                    checkBox.Click += CheckPointIzm_Click;
                     stackPanel.Children.Add(checkBox);
 
-                    TextBlock textBlock = new TextBlock();
-                    textBlock.Text = task.Text;
-                    textBlock.FontSize = 18;
-                    textBlock.Width = 250;
-                    textBlock.VerticalAlignment = VerticalAlignment.Center;
-                    textBlock.TextWrapping = TextWrapping.Wrap;
-                    textBlock.Margin = new Thickness(20, 0, 0, 20);
-                    stackPanel.Children.Add(textBlock);
+                    TextBox textBoxId = new TextBox();
+                    textBoxId.Name = "id";
+                    textBoxId.Text = task.Id.ToString();
+                    textBoxId.IsReadOnly = true;
+                    textBoxId.Visibility = Visibility.Collapsed;
+                    stackPanel.Children.Add(textBoxId);
+
+                    TextBox textBox = new TextBox();
+                    textBox.Text = task.Text;
+                    textBox.FontSize = 18;
+                    textBox.Width = 250;
+                    textBox.VerticalAlignment = VerticalAlignment.Center;
+                    textBox.TextWrapping = TextWrapping.Wrap;
+                    textBox.IsReadOnly = true;
+                    textBox.BorderBrush = Brushes.Transparent;
+                    //textBox.MouseDoubleClick += ;
+                    textBox.Margin = new Thickness(20, 0, 0, 20);
+                    stackPanel.Children.Add(textBox);
 
                     BitmapImage bitmapImage = new BitmapImage(new Uri(@"C:\Users\П\source\repos\PR4_ToDoList_U\Image\крестик.png"));
                     Image image = new Image();
@@ -93,13 +104,58 @@ namespace PR4_ToDoList_U
                     button.VerticalAlignment = VerticalAlignment.Center;
                     button.Width = 60;
                     button.Content = image;
+                    //button.Click += ;
                     button.VerticalAlignment = VerticalAlignment.Center;
 
                     stackPanel.Children.Add(button);
                     panel.Children.Add(stackPanel);
+
                 }
             }
 
+        }
+        private void CheckPointIzm_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox == null) return;
+
+            StackPanel stackPanelParent = checkBox.Parent as StackPanel;
+            if (stackPanelParent == null) return;
+
+            int idTask = 0;
+            foreach (var item in stackPanelParent.Children)
+            {
+                if (item is TextBox textBox)
+                {
+                    if (textBox.Name == "id")
+                    { 
+                        idTask = int.Parse(textBox.Text);
+                        using (var context = new dbContact())
+                        {
+                            var task = context.newTasks.Find(idTask);
+                            if (task == null) break;
+                            context.Entry(task).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                            context.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        textBox.Foreground = Brushes.Gray;
+                        textBox.TextDecorations = TextDecorations.Strikethrough;
+                        using (var context = new dbContact()) 
+                        {
+                            ReadyTask newReadyTask = new ReadyTask()
+                            {
+                                firstNomer = idTask,
+                                Text = textBox.Text,
+                                Statys = true
+                            };
+                            context.ReadyTasks.Add(newReadyTask);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
         }
     }
 }

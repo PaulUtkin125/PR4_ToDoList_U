@@ -11,8 +11,8 @@ using PR4_ToDoList_U.Data;
 namespace PR4_ToDoList_U.Migrations
 {
     [DbContext(typeof(dbContact))]
-    [Migration("20240429064606_sekendMigration")]
-    partial class sekendMigration
+    [Migration("20240429182901_triMigration")]
+    partial class triMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

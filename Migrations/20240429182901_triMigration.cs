@@ -5,7 +5,7 @@
 namespace PR4_ToDoList_U.Migrations
 {
     /// <inheritdoc />
-    public partial class sekendMigration : Migration
+    public partial class triMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

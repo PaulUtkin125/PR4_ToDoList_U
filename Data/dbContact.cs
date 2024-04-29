@@ -11,7 +11,7 @@ namespace PR4_ToDoList_U.Data
     internal class dbContact : DbContext
     {
         public DbSet<NewTask> newTasks { get; set; }
-        public DbSet<ReadyTask> ReadyTasks { get;}
+        public DbSet<ReadyTask> ReadyTasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
