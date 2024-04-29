@@ -10,8 +10,8 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBox Width="250" FontSize="18" md:HintAssist.HelperText="Task"/>
-                <Button Width="100" Content="Add" Margin="50 0 0 0"/>
+                <TextBox Width="250" FontSize="18" Name="textNewTask" md:HintAssist.HelperText="Task" Keyboard.KeyDown="enterDown_Click"/>
+                <Button Width="100" Content="Add" Margin="50 0 0 0" Click="addNewTask_Click"/>
             </StackPanel>
             <ScrollViewer Margin="10 20 10 0">
                 <WrapPanel Name="TaskList"/>

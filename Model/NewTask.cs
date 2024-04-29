@@ -10,6 +10,6 @@ namespace PR4_ToDoList_U.Model
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public double Statys { get; set; }
+        public bool Statys { get; set; }
     }
 }

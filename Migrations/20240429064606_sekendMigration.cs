@@ -5,7 +5,7 @@
 namespace PR4_ToDoList_U.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class sekendMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace PR4_ToDoList_U.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Statys = table.Column<double>(type: "float", nullable: false)
+                    Statys = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +32,7 @@ namespace PR4_ToDoList_U.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     firstNomer = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Statys = table.Column<double>(type: "float", nullable: false)
+                    Statys = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

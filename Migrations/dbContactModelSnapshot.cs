@@ -29,8 +29,8 @@ namespace PR4_ToDoList_U.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Statys")
-                        .HasColumnType("float");
+                    b.Property<bool>("Statys")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -49,8 +49,8 @@ namespace PR4_ToDoList_U.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Statys")
-                        .HasColumnType("float");
+                    b.Property<bool>("Statys")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Text")
                         .IsRequired()

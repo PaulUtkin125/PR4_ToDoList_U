@@ -11,8 +11,8 @@ using PR4_ToDoList_U.Data;
 namespace PR4_ToDoList_U.Migrations
 {
     [DbContext(typeof(dbContact))]
-    [Migration("20240429063024_firstMigration")]
-    partial class firstMigration
+    [Migration("20240429064606_sekendMigration")]
+    partial class sekendMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,8 +32,8 @@ namespace PR4_ToDoList_U.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Statys")
-                        .HasColumnType("float");
+                    b.Property<bool>("Statys")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -52,8 +52,8 @@ namespace PR4_ToDoList_U.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Statys")
-                        .HasColumnType("float");
+                    b.Property<bool>("Statys")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Text")
                         .IsRequired()
