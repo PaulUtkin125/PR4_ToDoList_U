@@ -104,7 +104,7 @@ namespace PR4_ToDoList_U
                     button.VerticalAlignment = VerticalAlignment.Center;
                     button.Width = 60;
                     button.Content = image;
-                    //button.Click += ;
+                    button.Click += DeleteTask;
                     button.VerticalAlignment = VerticalAlignment.Center;
 
                     stackPanel.Children.Add(button);
@@ -113,6 +113,34 @@ namespace PR4_ToDoList_U
                 }
             }
 
+        }
+        public void DeleteTask(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            StackPanel stackPanelParent = button.Parent as StackPanel;
+            if (stackPanelParent is null) return;
+
+            int idTask = 0;
+            foreach (var item in stackPanelParent.Children)
+            {
+                if (item is TextBox textBox)
+                {
+                    if (textBox.Name == "id")
+                    {
+                        idTask = int.Parse(textBox.Text);
+                        using (var context = new dbContact())
+                        {
+                            var task = context.newTasks.Find(idTask);
+                            if (task == null) { VuvodZadach(); break; }
+                            context.Entry(task).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                            context.SaveChanges();
+
+                            VuvodZadach();
+                            return;
+                        }
+                    }
+                }
+            }
         }
         private void CheckPointIzm_Click(object sender, RoutedEventArgs e)
         {
