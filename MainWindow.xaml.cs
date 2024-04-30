@@ -1,5 +1,6 @@
 ﻿using PR4_ToDoList_U.Data;
 using PR4_ToDoList_U.Model;
+using PR4_ToDoList_U.Windows;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -53,6 +54,7 @@ namespace PR4_ToDoList_U
                 };
                 context.newTasks.Add(newTask);
                 context.SaveChanges();
+                textNewTask.Text = string.Empty;
             }
         }
 
@@ -90,7 +92,7 @@ namespace PR4_ToDoList_U
                     textBox.TextWrapping = TextWrapping.Wrap;
                     textBox.IsReadOnly = true;
                     textBox.BorderBrush = Brushes.Transparent;
-                    //textBox.MouseDoubleClick += ;
+                    textBox.MouseDoubleClick += ModefiTasc_DoubleClick;
                     textBox.Margin = new Thickness(20, 0, 0, 20);
                     stackPanel.Children.Add(textBox);
 
@@ -104,7 +106,7 @@ namespace PR4_ToDoList_U
                     button.VerticalAlignment = VerticalAlignment.Center;
                     button.Width = 60;
                     button.Content = image;
-                    button.Click += DeleteTask;
+                    button.Click += DeleteTask_Click;
                     button.VerticalAlignment = VerticalAlignment.Center;
 
                     stackPanel.Children.Add(button);
@@ -114,7 +116,36 @@ namespace PR4_ToDoList_U
             }
 
         }
-        public void DeleteTask(object sender, RoutedEventArgs e)
+
+        public void ModefiTasc_DoubleClick(object sender, RoutedEventArgs e) 
+        {
+            TextBox textBox = sender as TextBox;
+            StackPanel stackPanelParent = textBox.Parent as StackPanel;
+            if (stackPanelParent is null) return;
+
+            int idTask = 0;
+            foreach (var item in stackPanelParent.Children)
+            {
+                if (item is TextBox text)
+                {
+                    if (text.Name == "id")
+                    {
+                        idTask = int.Parse(text.Text);
+                        using (var context = new dbContact())
+                        {
+                            var task = context.newTasks.Find(idTask);
+                            if (task == null) break;
+
+                            Redaktirovanie redaktirovanie = new Redaktirovanie(task);
+                            redaktirovanie.ShowDialog();
+
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        public void DeleteTask_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             StackPanel stackPanelParent = button.Parent as StackPanel;
