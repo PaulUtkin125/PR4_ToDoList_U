@@ -4,7 +4,6 @@
 
 
 
-
 ## Используемое програмное обеспечение:
 * Visual Studio Code версии 1.89.1.0
 * Open Server (Open Server Panel) версии 5.4.3.0
