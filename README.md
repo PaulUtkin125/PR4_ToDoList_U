@@ -11,7 +11,7 @@
 
 
 
-Настройка додулей Open Server Panel
+## Настройка додулей Open Server Panel
 * HTTP - Apache_2.4-PHP_7.2-7.4
 * PHP - PHP_7.2
 * MySQL/MariaDB - MariaDB-10.6-Win10
